@@ -25,15 +25,15 @@ jobs:
             - name: Check formatting
               run: npm run format:check
 
-            - name: Format code
-              run: npm run format
-
             - name: Run linter
               run: npm run lint
 
             - name: Run tests
               run: npm test
-            
+
+    build-and-push:
+        needs: build-and-test
+        runs-on: ubuntu-latest
         if: github.event_name == 'push'
 
         steps:
@@ -54,9 +54,3 @@ jobs:
                   tags: |
                       nayanakb/cicd:latest
                       nayanakb/cicd:${{ github.sha }}
-
-
-
-
-build-and-push:
-        
